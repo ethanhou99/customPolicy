@@ -1,6 +1,6 @@
 {
  "properties": {
-  "displayName": "Latest TLS version should be used in your API App",
+  "displayName": "Latest TLS version 1.2 should be used in your API App",
   "policyType": "BuiltIn",
   "mode": "Indexed",
   "description": "Upgrade to the latest TLS version",
