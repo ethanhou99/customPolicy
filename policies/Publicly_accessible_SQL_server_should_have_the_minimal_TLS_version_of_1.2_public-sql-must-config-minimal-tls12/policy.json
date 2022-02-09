@@ -1,9 +1,9 @@
 {
  "properties": {
-  "displayName": "Publicly accessible SQL server should have the minimal TLS version of 1.2",
+  "displayName": "Publicly accessible SQL server should configure the minimal TLS version of 1.2",
   "policyType": "Custom",
   "mode": "All",
-  "description": "This policy enables you to check if the SQL instance's TLS version is the latest",
+  "description": "This policy enables you to check if the SQL instance's TLS version is the latest (1.2_",
   "metadata": {
    "category": "SQL",
    "securityCenter": {
@@ -41,7 +41,7 @@
      },
      {
       "field": "Microsoft.Sql/servers/publicNetworkAccess",
-      "equals": "Enabled"
+      "notEquals": "Enabled"
      },
      {
       "anyOf": [
