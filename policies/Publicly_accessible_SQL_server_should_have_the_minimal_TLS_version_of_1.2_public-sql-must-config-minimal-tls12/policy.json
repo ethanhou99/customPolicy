@@ -1,0 +1,68 @@
+{
+ "properties": {
+  "displayName": "Publicly accessible SQL server should have the minimal TLS version of 1.2",
+  "policyType": "Custom",
+  "mode": "All",
+  "description": "This policy enables you to check if the SQL instance's TLS version is the latest",
+  "metadata": {
+   "category": "SQL",
+   "securityCenter": {
+    "RemediationDescription": "1. Go to the SQL server instance.\n2. Click 'Firewalls and virtual networks' in the 'Security' section.\n3. Under 'SSL settings' select 'ENABLED'.\n4. Under 'Minimum TLS Version' select '1.2'.\n5. Save the Firewalls and virtual networks setting.",
+    "Severity": "Low",
+    "Categories": [
+     "M365 controls"
+    ]
+   },
+   "createdBy": "bf9ec574-a77d-4ce3-b905-79e98fecbf02",
+   "createdOn": "2022-01-07T05:46:50.5544132Z",
+   "updatedBy": "bf9ec574-a77d-4ce3-b905-79e98fecbf02",
+   "updatedOn": "2022-01-07T07:14:55.6162254Z"
+  },
+  "parameters": {
+   "effect": {
+    "type": "String",
+    "metadata": {
+     "displayName": "Effect",
+     "description": "Enable or disable the execution of the policy"
+    },
+    "allowedValues": [
+     "Audit",
+     "Disabled"
+    ],
+    "defaultValue": "Audit"
+   }
+  },
+  "policyRule": {
+   "if": {
+    "allOf": [
+     {
+      "field": "type",
+      "equals": "Microsoft.Sql/servers"
+     },
+     {
+      "field": "Microsoft.Sql/servers/publicNetworkAccess",
+      "equals": "Enabled"
+     },
+     {
+      "anyOf": [
+       {
+        "field": "Microsoft.Sql/servers/minimalTlsVersion",
+        "exists": false
+       },
+       {
+        "field": "Microsoft.Sql/servers/minimalTlsVersion",
+        "notEquals": "1.2"
+       }
+      ]
+     }
+    ]
+   },
+   "then": {
+    "effect": "[parameters('effect')]"
+   }
+  }
+ },
+ "id": "/subscriptions/62c69430-1bc0-48ff-8d44-987e8ce41f62/providers/Microsoft.Authorization/policyDefinitions/public-sql-must-config-minimal-tls12",
+ "type": "Microsoft.Authorization/policyDefinitions",
+ "name": "public-sql-must-config-minimal-tls12"
+}

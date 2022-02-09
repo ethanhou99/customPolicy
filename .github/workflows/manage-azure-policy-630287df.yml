@@ -1,0 +1,32 @@
+name: manage-azure-policy-630287df
+on:
+  workflow_dispatch:
+    inputs:
+      remarks:
+        description: 'Reason for triggering the workflow run'
+        required: false
+        default: 'Updating Azure Policies'
+
+
+## Uncomment the following if you wish to automatically trigger workflow run with every commit
+#
+#  push:
+#    paths:
+#      - 'policies/Publicly_accessible_SQL_server_should_have_the_minimal_TLS_version_of_1.2_public-sql-must-config-minimal-tls12/**'
+#      - .github/workflows/manage-azure-policy-630287df.yml
+jobs:
+  apply-azure-policy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS_630287df}}
+        allow-no-subscriptions: true
+    - name: Create or Update Azure Policies
+      uses: azure/manage-azure-policy@v0
+      with:
+        paths: |
+          policies/Publicly_accessible_SQL_server_should_have_the_minimal_TLS_version_of_1.2_public-sql-must-config-minimal-tls12/**
